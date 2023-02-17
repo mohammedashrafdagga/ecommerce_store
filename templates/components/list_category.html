@@ -1,0 +1,11 @@
+<ul
+  class="flex flex-wrap items-center justify-around py-3 text-gray-900 border-b border-1"
+>
+  {% for category in categories %}
+  <li>
+    <a href="#" class="flex justify-center mr-4 hover:underline md:mr-6"
+      >{{category.name|title}}</a
+    >
+  </li>
+  {% endfor %}
+</ul>

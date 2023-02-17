@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-
+from django.urls import reverse
 
 
 User = get_user_model()
@@ -34,7 +34,13 @@ class Product(models.Model):
     
     class Meta:
         ordering = ('-created',)
-        
-        
+    
+    # view single page for product - return url 
+    @property
+    def get_view_url(self):
+        return reverse('store:product-detail', kwargs={'slug': self.slug})
+    
+    
+    # return str method
     def __str__(self) -> str:
         return self.title
