@@ -22,7 +22,6 @@ class ProductMixin(CategoryMixin):
             category = self.category,
             title = 'Django Framework',
             slug = 'django_framework',
-            # image = 'media\product_images\University_Icon.jpg',
             price = 12.15
         )
 
