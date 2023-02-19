@@ -12,7 +12,7 @@ class CategoryMixin:
     def setUp(self) -> None:
         self.user = User.objects.create(username = 'test_user')
         self.category = Category.objects.create(name = 'django', slug = 'django')
-
+        
 
 class ProductMixin(CategoryMixin):
     def setUp(self) -> None:

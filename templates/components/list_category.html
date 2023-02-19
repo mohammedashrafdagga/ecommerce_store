@@ -1,11 +1,21 @@
 <ul
   class="flex flex-wrap items-center justify-around py-3 text-gray-900 border-b border-1"
 >
-  {% for category in categories %}
+  {% for c in categories %}
   <li>
-    <a href="#" class="flex justify-center mr-4 hover:underline md:mr-6"
-      >{{category.name|title}}</a
+    {% if c == category%}
+    <a
+      href="{{c.get_absolute_url}}"
+      class="flex justify-content-center mr-4 hover:underline md:mr-6 text-blue-700 font-bold"
+      >{{c.name|title}}</a
     >
+    {% else %}
+    <a
+      href="{{c.get_absolute_url}}"
+      class="flex justify-content-center mr-4 hover:underline md:mr-6"
+      >{{c.name|title}}</a
+    >
+    {% endif %}
   </li>
   {% endfor %}
 </ul>
