@@ -61,6 +61,7 @@ class TestProductView(
         '''
         # get response
         response = self.client.get(reverse('store:product-detail', kwargs={'slug':self.product1.slug}))
+
         # assert status code
         self.assertEqual(response.status_code, 404)
 
@@ -76,7 +77,7 @@ class TestProductView(
         # assert status code
         self.assertEqual(response.status_code, 200)
         # assert template used 
-        self.assertTemplateUsed(response, 'store/detail.html')
+        self.assertTemplateUsed(response, 'store/product_detail.html')
         # assert context return by homepage
         context = response.context
         # return one item and the item is instance from Product
@@ -105,7 +106,7 @@ class TestProductView(
         # assert status code
         self.assertEqual(response.status_code, 200)
         # assert template used
-        self.assertTemplateUsed(response, 'store/c_product.html')
+        self.assertTemplateUsed(response, 'store/category_product.html')
         # assert context return by homepage
         context = response.context
         # this category have one product, so the view must return len of product is 1
