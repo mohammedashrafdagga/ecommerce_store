@@ -5,5 +5,6 @@ from . import views
 app_name = 'basket'
 
 urlpatterns = [
-    path('', views.baskt_summary, name='basket-summary')
+    path('', views.basket_summary, name='basket-summary'),
+    path('add/', views.basket_add, name='basket-add'),
 ]

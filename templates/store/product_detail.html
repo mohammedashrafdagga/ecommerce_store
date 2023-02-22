@@ -27,8 +27,8 @@
             <div class="relative">
               <input
                 type="number"
-                name=""
-                id=""
+                name="items_count"
+                id="product_count"
                 class="border border-gray-500 py-1 px-2 rounded"
                 max="10"
                 min="0"
@@ -37,24 +37,43 @@
             </div>
           </div>
         </div>
-
         <div class="flex">
           <span class="title-font font-medium text-2xl text-gray-900"
             >${{product.price}}</span
           >
-          <a
+          <button
+            id="add-button"
+            value="{{product.id}}"
             class="flex ml-auto text-white bg-indigo-500 border-0 py-1 px-8 focus:outline-none hover:bg-indigo-600 rounded"
           >
             Buy
-          </a>
-          <!-- <a
-            class="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded"
-          >
-            Order
-          </a> -->
+          </button>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  let add_button = document.getElementById("add-button");
+  add_button.addEventListener("click", function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "{% url 'basket:basket-add' %}",
+      data: {
+        product_id: add_button.value,
+        product_qty: document.getElementById("product_count").value,
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: "post",
+      },
+
+      success: function (json) {
+        // get data to send to basket
+        document.getElementById("basket_qty").innerHTML = json.qty;
+      },
+      error: function (xhr, errmsg, err) {},
+    });
+  });
+</script>
 {% endblock %}
