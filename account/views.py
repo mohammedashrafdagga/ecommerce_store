@@ -3,10 +3,11 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.sites.shortcuts import get_current_site
-from .forms import RegisterUserForm
+from .forms import RegisterUserForm, UserEditForm, PWRestForm
 from .token import account_activate_token
 from .models import UserBase
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 # Create your views here.
 
@@ -73,8 +74,26 @@ def activate_user(request, uidb64, token) -> None:
                 })
 
 
+@login_required(login_url = '/account/login')
 def user_dashboard(request):
     return render(request, 'account/user/dashboard.html')
 
 
 
+@login_required(login_url='/account/login/')
+def profile_edit(request):
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user, data = request.POST)
+        if user_form.is_valid():
+            user_form.save()
+    else:
+        user_form = UserEditForm(instance = request.user)
+    return render(request, 'account/user/edit.html', {'user_form': user_form})
+    
+@login_required
+def delete_user(request):
+    user = UserBase.objects.get(username = request.user)
+    user.is_active = False
+    user.save()
+    logout(request)
+    return redirect('account:delete-confirmation')

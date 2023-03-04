@@ -1,6 +1,8 @@
 from django import forms
 from .models import UserBase
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm, PasswordResetForm, SetPasswordForm
+)
 
 
 class RegisterUserForm(forms.ModelForm):
@@ -46,3 +48,37 @@ class RegisterUserForm(forms.ModelForm):
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(label='username', max_length=50, help_text='Required')
     password = forms.CharField(label='password',  widget=forms.PasswordInput)
+    
+    
+    
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = UserBase
+        fields = ('email', 'username', 'first_name',)
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].required = True
+        self.fields['email'].required = True
+  
+  
+  
+  
+class PWRestForm(PasswordResetForm):
+    email = forms.EmailField(max_length=255)
+    
+    # clean email
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        user = UserBase.objects.filter(email = email).exists()
+        
+        if not user:
+            raise forms.ValidationError('Unfortunately we can not find that email address')
+        
+        return email
+    
+    
+class PWRestConfirmForm(SetPasswordForm):
+    new_password1 = forms.CharField(widget=forms.PasswordInput)
+    new_password2 = forms.CharField(widget=forms.PasswordInput)

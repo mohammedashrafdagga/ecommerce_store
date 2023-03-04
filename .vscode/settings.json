@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["uidb"]
+  "cSpell.words": ["uidb"],
+  "editor.minimap.maxColumn": 150
 }

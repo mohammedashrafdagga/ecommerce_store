@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% block content %}
+<!-- Edit profile form -->
+
+<!-- form -->
+<!-- Edit profile form -->
+<form method="POST" class="max-w-lg mx-auto">
+  <!-- Success message -->
+  {% if user_form.is_valid %}
+  <div class="text-green-500">{{ success_message }}</div>
+  <a href="{% url 'account:dashboard' %}" class="text-blue-500"
+    >Go to dashboard</a
+  >
+  {% endif %}
+  <br />
+
+  <!-- Error message -->
+  {% if user_form.errors %}
+  <div class="text-red-500">Something went wrong. Please try again.</div>
+  {% endif %} {% csrf_token %}
+  <div class="mb-4">
+    <label for="id_first_name" class="block mb-2">First name:</label>
+    <input
+      type="text"
+      id="id_first_name"
+      name="first_name"
+      value="{{ user_form.first_name.value }}"
+      class="w-full border rounded py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+    />
+  </div>
+  <div class="mb-4">
+    <label for="id_email" class="block mb-2">Email:</label>
+    <input
+      type="email"
+      id="id_email"
+      name="email"
+      value="{{ user_form.email.value }}"
+      readonly
+      class="w-full border rounded py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+    />
+  </div>
+  <div class="mb-4">
+    <label for="id_username" class="block mb-2">Username:</label>
+    <input
+      type="text"
+      id="id_username"
+      name="username"
+      value="{{ user_form.username.value }}"
+      readonly
+      class="w-full border rounded py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+    />
+  </div>
+  <button
+    type="submit"
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+  >
+    Save changes
+  </button>
+</form>
+
+<!-- end content  -->
+{% endblock %}
