@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+<!-- content activate page -->
+{% block content %}
+<div class="flex flex-col items-center justify-center h-screen">
+  <h1 class="text-3xl font-bold mb-8">Your account is now activated!</h1>
+  <p class="text-lg mb-4">Thank you for verifying your email address.</p>
+  <a
+    href="{% url 'account:dashboard' %}"
+    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+    >Go to DashBoard Page</a
+  >
+</div>
+{% endblock %}

@@ -13,12 +13,18 @@
     <!-- header -->
     {% include 'components/header.html' %}
     <!-- list category  -->
-    {% include 'components/list_category.html' %}
+    <!-- {% include 'components/list_category.html' %} -->
     <!-- end header -->
     <!-- content -->
     <div class="content">{% block content %} {% endblock %}</div>
     <!-- <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script> -->
     <!-- adding jquery  -->
+    <script>
+      const delete_url = "{% url 'basket:basket-delete' %}";
+      const csrf_token = "{{csrf_token}}";
+      const update_url = "{% url 'basket:basket-update' %}";
+    </script>
     <script src="{% static 'js/jquery-3.6.3.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
   </body>
 </html>

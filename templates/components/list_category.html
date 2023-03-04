@@ -1,8 +1,8 @@
 <ul
-  class="flex flex-wrap items-center justify-around py-3 text-gray-900 border-b border-1"
+  class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 py-3 text-gray-900 border-b border-1"
 >
   {% for c in categories %}
-  <li>
+  <li class="flex mx-auto p-2 md:p-0">
     {% if c == category%}
     <a
       href="{{c.get_absolute_url}}"
