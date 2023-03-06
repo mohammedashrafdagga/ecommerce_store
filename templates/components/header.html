@@ -82,85 +82,66 @@
         </svg>
       </button>
     </div>
-    <div class="flex md:order-2 bg-blue-500 py-2 px-2 rounded text-white">
-      <div id="count_item_in_cart">
-        <span></span>
+
+    <a
+      href="{% url 'basket:basket-summary' %}"
+      class="flex md:order-2 bg-blue-500 py-2 px-2 rounded text-white"
+    >
+      <div id="count_item_in_cart" class="flex">
+        <span id="basket_qty" class="mr-3">
+          {% with total_qty=basket|length %}
+          <!-- if total _qty more than 0 -->
+          {% if total_qty > 0 %} {{total_qty}} {% else %} 0 {% endif %}
+          <!-- end with  -->
+          {% endwith %}
+        </span>
+
+        <svg
+          class="w-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+          ></path>
+        </svg>
       </div>
-      <button type="button" class="mx-2">Cart</button>
-      <svg
-        class="w-6"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-        ></path>
-      </svg>
-    </div>
+      <button type="button" class="font-semibold text-base mx-1">Cart</button>
+    </a>
+    <ul
+      class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white"
+    >
+      {% if request.user.is_authenticated %}
+      <li>
+        <a
+          href="{% url 'account:logout' %}"
+          class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
+          aria-current="page"
+          >logout</a
+        >
+      </li>
+      {% else %}
+      <li>
+        <a
+          href="{% url 'account:login' %}"
+          class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+          >Login</a
+        >
+      </li>
+      <li>
+        <a
+          href="{% url 'account:register' %}"
+          class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+          >register
+        </a>
+      </li>
+      {% endif %}
+    </ul>
   </div>
 </nav>
-
-<!-- 
-      <div
-      class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-      id="navbar-search"
-    >
-      <div class="relative mt-3 md:hidden">
-        <div
-          class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
-        >
-          <svg
-            class="w-5 h-5 text-gray-500"
-            aria-hidden="true"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-        </div>
-        <input
-          type="text"
-          id="search-navbar"
-          class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-          placeholder="Search..."
-        />
-      </div>
-      <ul
-        class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white"
-      >
-        <li>
-          <a
-            href="#"
-            class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
-            aria-current="page"
-            >Home</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-            >About</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-            >Services</a
-          >
-        </li>
-      </ul>
-    </div>
- -->

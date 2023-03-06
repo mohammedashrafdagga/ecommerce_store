@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+<!-- start content -->
+{% block content %}
+<div class="flex justify-center items-center h-screen">
+  <div class="w-full max-w-md">
+    <div class="bg-white p-8 rounded-lg shadow-lg">
+      {% if 'email' in request.get_full_path %}
+      <p class="text-lg font-semibold mb-6">
+        Your password has been successfully reset.
+      </p>
+      <p class="mb-4">Please check your email for further instructions.</p>
+      {% endif %}
+      <!-- complete status -->
+      {% if 'complete' in request.get_full_path %}
+      <p class="text-lg font-semibold mb-6">
+        Your password has been successfully reset.
+      </p>
+      <a
+        class="text-blue-500 hover:text-blue-700"
+        href="{% url 'account:login' %}"
+        >Return to login page</a
+      >
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
